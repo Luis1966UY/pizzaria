@@ -11,6 +11,7 @@ class Pizza extends Model
         'nome',
         'tamanho',
         'sabores',
+        'preco',
         'created_at',
         'updated_at'
     ];

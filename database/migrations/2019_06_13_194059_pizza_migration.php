@@ -16,7 +16,7 @@ class PizzaMigration extends Migration
         Schema::create('pizzas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome',200);
-            $table->char('tamano','1');
+            $table->char('tamanho','1');
             $table->text('sabores');
             $table->double('preco',6,2);
             $table->timestamps();
