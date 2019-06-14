@@ -44,7 +44,8 @@ class ClientePedidoController extends Controller
             $pedido = Pedido::find($pedido_id);
 
             if ($pedido) {
-                $pedido->cliente_id = $cliente_id;
+
+                $pedido->cliente_id = $request->get('cliente_id');
                 $pedido->save();
 
                 return $this->createResponse('O pedido foi atualizado', 200);
