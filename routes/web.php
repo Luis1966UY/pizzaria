@@ -28,3 +28,16 @@ $router->get('/clientes/{clientes}', 'ClienteController@show');
 $router->put('/clientes/{clientes}', 'ClienteController@update');
 $router->patch('/clientes/{clientes}', 'ClienteController@update');
 $router->delete('/clientes/{clientes}', 'ClienteController@destroy');
+
+$router->get('/pedidos', 'PedidoController@index');
+$router->get('/pedidos/{pedidos}', 'PedidoController@show');
+
+$router->get('/clientes/{clientes}/pedidos', 'ClientePedidoController@index');
+$router->post('/clientes/{clientes}/pedidos', 'ClientePedidoController@store');
+$router->put('/clientes/{clientes}/pedidos/{pedidos}', 'ClientePedidoController@update');
+$router->patch('/clientes/{clientes}/pedidos/{pedidos}', 'ClientePedidoController@update');
+$router->delete('/clientes/{clientes}/pedidos/{pedidos}', 'ClientePedidoController@destroy');
+
+$router->get('/pedidos/{pedidos}/pizzas', 'PedidoPizzaController@index');
+$router->post('/pedidos/{pedidos}/pizzas/{pizzas}', 'PedidoPizzaController@store');
+$router->delete('/pedidos/{pedidos}/pizzas/{pizzas}', 'PedidoPizzaController@destroy');

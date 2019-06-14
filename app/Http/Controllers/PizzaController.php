@@ -54,7 +54,7 @@ class PizzaController extends Controller
             return $this->createResponse("A pizza $pizza->id foi atualizada", 200);
         }
 
-        return $this->createResponseError("Esse ID de pizza não existe", 404);
+        return $this->createResponseError("Não existe uma pizza com esse id", 404);
     }
 
     public function destroy($pizza_id)
@@ -62,12 +62,12 @@ class PizzaController extends Controller
         $pizza = Pizza::find($pizza_id);
 
         if ($pizza) {
-            
+            $pizza->pedidos()->sync([]);
             $pizza->delete();
 
             return $this->createResponse("A pizza $pizza->id foi eliminada", 200);
         }
-        return $this->createResponseError("Esse ID de pizza não existe", 404);
+        return $this->createResponseError("Não existe nenhuma pizza com esse id", 404);
     }
 
     public function validation($request)

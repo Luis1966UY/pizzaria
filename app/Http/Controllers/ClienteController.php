@@ -40,19 +40,19 @@ class ClienteController extends Controller
             $this->validation($request);
 
             $nome = $request->get('nome');
-            $endereco = $request->get('endereco');
             $telefone = $request->get('telefone');
+            $endereco = $request->get('endereco');
 
             $cliente->nome = $nome;
-            $cliente->endereco = $endereco;
             $cliente->telefone = $telefone;
+            $cliente->endereco = $endereco;
 
             $cliente->save();
 
             return $this->createResponse("O cliente $cliente->id foi atualizado", 200);
         }
 
-        return $this->createResponseError("Não existe cliente com esse ID", 404);
+        return $this->createResponseError("Não existe nenhum cliente com esse id", 404);
     }
 
     public function destroy($cliente_id)
@@ -60,20 +60,22 @@ class ClienteController extends Controller
         $cliente = Cliente::find($cliente_id);
 
         if ($cliente) {
-            $cliente->courses()->sync([]);
+            if (sizeof($cliente->pedidos) > 0) {
+                return $this->createResponseError("Esse cliente tem pedido registrados. Tem que eliminar os pedidos antes de eliminar o clientee.", 409);
+            }
             $cliente->delete();
 
             return $this->createResponse("O cliente $cliente->id foi eliminado", 200);
         }
-        return $this->createResponseError("Não existe cliente com esse ID", 404);
+        return $this->createResponseError("Não existe um cliente com esse id", 404);
     }
 
     public function validation($request)
     {
         $rules = [
             'nome' => 'required',
-            'endereco' => 'required',
             'telefone' => 'required|numeric',
+            'endereco' => 'required',
         ];
 
         $this->validate($request, $rules);
